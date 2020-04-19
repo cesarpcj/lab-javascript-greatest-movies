@@ -81,8 +81,52 @@ function orderAlphabetically(movies){
     return sorted.filter( (movie, index) => index < 20);
 
 }
+
+function turnHoursToMinutes(movies){
+    const replaced = movies.reduce( (acc, movie) => {
+        
+        arr = movie.duration.replace("h","").replace("min", "").split(" ");
+        movie.duration = parseInt(arr[0]*60) + parseInt(arr[1]);
+
+        return [...acc, movie];
+
+    }, []);
     
-console.log(orderAlphabetically(movies));
+}
+
+function bestYearAvg(movies){
+    const moviesByYear = movies.reduce((yearsRates, movie)=>{
+        //retornar um obj {year : [1,2,3]}
+        
+        if([movie.year] in yearsRates){
+            yearsRates[movie.year] = [...yearsRates[movie.year], movie.rate];
+        }else{
+            yearsRates[movie.year] = [movie.rate];
+        }
+        
+        return yearsRates;
+    },[]);
+    
+    
+    const AvgArr = moviesByYear.map((val, index) => {
+        let acc = 0;
+        
+        for(let number of val){
+            acc+=number;
+        }
+        
+        //console.log({year : index, avg : acc/val.length});
+        return {year : index, avg : acc/val.length};
+        
+    });
+
+    const sortedArr =  AvgArr.sort((a,b) => b.avg - a.avg  );
+    
+    return sortedArr[0];
+}
+ 
+console.log(bestYearAvg(movies));
+
 
 
 
