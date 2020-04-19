@@ -1,4 +1,5 @@
-let movies = [
+
+  let movies = [
     {
       "title": "The Shawshank Redemption",
       "year": 1994,
@@ -2966,4 +2967,6 @@ let movies = [
       ],
       "rate": 8
     }
-  ]
+  ];
+
+  module.exports = {movies};
